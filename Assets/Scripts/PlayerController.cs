@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
 {
     public float speed = 6.0f; //Player's walking speed
     public float lookSpeed = 50.0f; //Player's turning speed
+    public int backwardsStepForce = 400;
 
     private readonly int xRange = 350; // Ground plane size (x-axis) * 10
     private readonly int yRange = 350; // Ground plane size (y-axis) * 10
@@ -62,7 +63,7 @@ public class PlayerController : MonoBehaviour
         else if (verticalInput < 0 && !tookStep)
         {
             tookStep = true;
-            playerRb.AddRelativeForce(Vector3.back * 500, ForceMode.Impulse);
+            playerRb.AddRelativeForce(Vector3.back * backwardsStepForce, ForceMode.Impulse);
         }
 
         currentRotation.y += horizontalInput * Time.deltaTime * lookSpeed;
@@ -76,6 +77,50 @@ public class PlayerController : MonoBehaviour
             //ADD WAIT until you can move again
 
         }
+
+        // Change the backwards force
+        if (Input.GetKeyDown(KeyCode.LeftBracket) && (backwardsStepForce > 100))
+        {
+            backwardsStepForce -= 10;
+        }
+        if (Input.GetKeyDown(KeyCode.RightBracket) && (backwardsStepForce < 700))
+        {
+            backwardsStepForce += 10;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            transform.position = new Vector3(0, 0, 0);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            transform.position = new Vector3(0, 0, 245);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            transform.position = new Vector3(245, 0, 245);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            transform.position = new Vector3(245, 0, 105);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            transform.position = new Vector3(385, 0, 105);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            transform.position = new Vector3(385, 0, -140);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            transform.position = new Vector3(140, 0, -140);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            transform.position = new Vector3(140, 0, 0);
+        }
+
 
         //Limit player's movement to the plane
         //if (transform.position.x < 0)
