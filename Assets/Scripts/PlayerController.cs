@@ -90,35 +90,35 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
-            transform.position = new Vector3(0, 0, 0);
+            transform.position = new Vector3(0, 1, 0);
         }
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            transform.position = new Vector3(0, 0, 245);
+            transform.position = new Vector3(0, 1, 245);
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            transform.position = new Vector3(245, 0, 245);
+            transform.position = new Vector3(245, 1, 245);
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            transform.position = new Vector3(245, 0, 105);
+            transform.position = new Vector3(245, 1, 105);
         }
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            transform.position = new Vector3(385, 0, 105);
+            transform.position = new Vector3(385, 1, 105);
         }
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
-            transform.position = new Vector3(385, 0, -140);
+            transform.position = new Vector3(385, 1, -140);
         }
         if (Input.GetKeyDown(KeyCode.Alpha6))
         {
-            transform.position = new Vector3(140, 0, -140);
+            transform.position = new Vector3(140, 1, -140);
         }
         if (Input.GetKeyDown(KeyCode.Alpha7))
         {
-            transform.position = new Vector3(140, 0, 0);
+            transform.position = new Vector3(140, 1, 0);
         }
 
 
