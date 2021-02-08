@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+//using UnityEngine.InputSystem.Utilities;
 
 /**
  * SIMPLE PLAYER CONTROLLER
@@ -21,17 +23,24 @@ public class PlayerController : MonoBehaviour
 
     private Camera playerCamera;
     private Rigidbody playerRb;
+    //private PlayerControl _controls;
 
     public Vector3 startPosition; //Used to reset to initial position
     public Vector3 startRotation; //User to reset to initial rotatin
+    public Vector2 inputVec;
 
     public Vector3 currentRotation; //Player's current rotation
+    private Vector3 moveVec;
 
-    private float horizontalInput; //Value of horizontal input
-    private float verticalInput; //Value of vertical input
+    public float horizontalInput; //Value of horizontal input
+    public float verticalInput; //Value of vertical input
 
     public bool tookStep = false;
-   
+
+    private void Awake()
+    {
+       // _controls = new PlayerControl();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -51,8 +60,8 @@ public class PlayerController : MonoBehaviour
     {
         //PLAYER INPUT
 
-        horizontalInput = Input.GetAxis("Horizontal");
-        verticalInput = Input.GetAxis("Vertical");
+       //horizontalInput = Input.GetAxis("Horizontal");
+       //verticalInput = Input.GetAxis("Vertical");
     
 
         if (verticalInput > 0)
@@ -79,15 +88,16 @@ public class PlayerController : MonoBehaviour
         }
 
         // Change the backwards force
-        if (Input.GetKeyDown(KeyCode.LeftBracket) && (backwardsStepForce > 100))
-        {
-            backwardsStepForce -= 10;
-        }
-        if (Input.GetKeyDown(KeyCode.RightBracket) && (backwardsStepForce < 700))
-        {
-            backwardsStepForce += 10;
-        }
+        //if (Input.GetKeyDown(KeyCode.LeftBracket) && (backwardsStepForce > 100))
+        //{
+        //    backwardsStepForce -= 10;
+        //}
+        //if (Input.GetKeyDown(KeyCode.RightBracket) && (backwardsStepForce < 700))
+        //{
+        //    backwardsStepForce += 10;
+        //}
 
+        #region Location Shortut
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
             transform.position = new Vector3(0, 1, 0);
@@ -120,6 +130,8 @@ public class PlayerController : MonoBehaviour
         {
             transform.position = new Vector3(140, 1, 0);
         }
+        #endregion
+
 
 
         //Limit player's movement to the plane
@@ -132,4 +144,37 @@ public class PlayerController : MonoBehaviour
         //    transform.position = new Vector3(transform.position.x, transform.position.y, 0);
         //}
     }
+    void OnMove(InputValue input)
+    {
+        //_controls.Player.Move.performed += cntx => inputVec = cntx.ReadValue<Vector2>();
+       // _controls.Player.Move.canceled += cntx => inputVec = Vector2.zero;
+
+        //Vector2 inputVec = new Vector2();
+        ////InputValue input,
+        //inputVec = input.Get<Vector2>();
+        //verticalInput = inputVec.y;
+        //horizontalInput = inputVec.x;
+
+        float inputV = input.Get<float>();
+        verticalInput = inputV;
+    }
+
+    void OnRotate(InputValue input)
+    {
+        float inputH = input.Get<float>();
+        horizontalInput = inputH;
+    }
+
+    //void OnBackwardsForce(InputValue input)
+    //{
+    //    float inputFloat = input.Get<float>();
+    //    if (inputFloat > 0)
+    //    {
+    //        backwardsStepForce += 10;
+    //    }
+    //    else
+    //    {
+    //        backwardsStepForce -= 10;
+    //    }
+    //}
 }
