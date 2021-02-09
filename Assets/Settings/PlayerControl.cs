@@ -479,6 +479,14 @@ public class @PlayerControl : IInputActionCollection, IDisposable
                     ""interactions"": ""Press(behavior=2)""
                 },
                 {
+                    ""name"": ""Rotate"",
+                    ""type"": ""Button"",
+                    ""id"": ""b91c04be-3458-414d-a405-163baf0946a8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=2)""
+                },
+                {
                     ""name"": ""RestartScene"",
                     ""type"": ""Button"",
                     ""id"": ""97d6671a-908d-49ef-b1ef-75dd86e062cb"",
@@ -493,77 +501,9 @@ public class @PlayerControl : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
-                },
-                {
-                    ""name"": ""BackwardsForceIncrease"",
-                    ""type"": ""Button"",
-                    ""id"": ""d9f56764-b910-47b8-b2f6-ae24aa0a13d6"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""BackwardsForceDecrease"",
-                    ""type"": ""Button"",
-                    ""id"": ""a1961a8a-b30a-43e9-bb3a-9c69877f1005"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""Rotate"",
-                    ""type"": ""Button"",
-                    ""id"": ""b91c04be-3458-414d-a405-163baf0946a8"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": ""Press(behavior=2)""
                 }
             ],
             ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""1b232842-a4c7-4564-b94f-a0bcf9771ac4"",
-                    ""path"": ""<Gamepad>/rightShoulder"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""BackwardsForceIncrease"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""709711e1-2fbc-409f-8f7e-7683097359cd"",
-                    ""path"": ""<Keyboard>/rightBracket"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""BackwardsForceIncrease"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""c47a3016-664a-4a92-84f3-508e573591c9"",
-                    ""path"": ""<Gamepad>/leftShoulder"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""BackwardsForceDecrease"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""75584fa3-28d8-4caa-8e53-ad712600a508"",
-                    ""path"": ""<Keyboard>/rightBracket"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""BackwardsForceDecrease"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
                 {
                     ""name"": """",
                     ""id"": ""fa8e38cb-0453-49b5-b1bb-9ee97bd79f18"",
@@ -866,11 +806,9 @@ public class @PlayerControl : IInputActionCollection, IDisposable
         // Player2
         m_Player2 = asset.FindActionMap("Player2", throwIfNotFound: true);
         m_Player2_Move = m_Player2.FindAction("Move", throwIfNotFound: true);
+        m_Player2_Rotate = m_Player2.FindAction("Rotate", throwIfNotFound: true);
         m_Player2_RestartScene = m_Player2.FindAction("RestartScene", throwIfNotFound: true);
         m_Player2_BackwardsForce = m_Player2.FindAction("BackwardsForce", throwIfNotFound: true);
-        m_Player2_BackwardsForceIncrease = m_Player2.FindAction("BackwardsForceIncrease", throwIfNotFound: true);
-        m_Player2_BackwardsForceDecrease = m_Player2.FindAction("BackwardsForceDecrease", throwIfNotFound: true);
-        m_Player2_Rotate = m_Player2.FindAction("Rotate", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -994,21 +932,17 @@ public class @PlayerControl : IInputActionCollection, IDisposable
     private readonly InputActionMap m_Player2;
     private IPlayer2Actions m_Player2ActionsCallbackInterface;
     private readonly InputAction m_Player2_Move;
+    private readonly InputAction m_Player2_Rotate;
     private readonly InputAction m_Player2_RestartScene;
     private readonly InputAction m_Player2_BackwardsForce;
-    private readonly InputAction m_Player2_BackwardsForceIncrease;
-    private readonly InputAction m_Player2_BackwardsForceDecrease;
-    private readonly InputAction m_Player2_Rotate;
     public struct Player2Actions
     {
         private @PlayerControl m_Wrapper;
         public Player2Actions(@PlayerControl wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Player2_Move;
+        public InputAction @Rotate => m_Wrapper.m_Player2_Rotate;
         public InputAction @RestartScene => m_Wrapper.m_Player2_RestartScene;
         public InputAction @BackwardsForce => m_Wrapper.m_Player2_BackwardsForce;
-        public InputAction @BackwardsForceIncrease => m_Wrapper.m_Player2_BackwardsForceIncrease;
-        public InputAction @BackwardsForceDecrease => m_Wrapper.m_Player2_BackwardsForceDecrease;
-        public InputAction @Rotate => m_Wrapper.m_Player2_Rotate;
         public InputActionMap Get() { return m_Wrapper.m_Player2; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1021,21 +955,15 @@ public class @PlayerControl : IInputActionCollection, IDisposable
                 @Move.started -= m_Wrapper.m_Player2ActionsCallbackInterface.OnMove;
                 @Move.performed -= m_Wrapper.m_Player2ActionsCallbackInterface.OnMove;
                 @Move.canceled -= m_Wrapper.m_Player2ActionsCallbackInterface.OnMove;
+                @Rotate.started -= m_Wrapper.m_Player2ActionsCallbackInterface.OnRotate;
+                @Rotate.performed -= m_Wrapper.m_Player2ActionsCallbackInterface.OnRotate;
+                @Rotate.canceled -= m_Wrapper.m_Player2ActionsCallbackInterface.OnRotate;
                 @RestartScene.started -= m_Wrapper.m_Player2ActionsCallbackInterface.OnRestartScene;
                 @RestartScene.performed -= m_Wrapper.m_Player2ActionsCallbackInterface.OnRestartScene;
                 @RestartScene.canceled -= m_Wrapper.m_Player2ActionsCallbackInterface.OnRestartScene;
                 @BackwardsForce.started -= m_Wrapper.m_Player2ActionsCallbackInterface.OnBackwardsForce;
                 @BackwardsForce.performed -= m_Wrapper.m_Player2ActionsCallbackInterface.OnBackwardsForce;
                 @BackwardsForce.canceled -= m_Wrapper.m_Player2ActionsCallbackInterface.OnBackwardsForce;
-                @BackwardsForceIncrease.started -= m_Wrapper.m_Player2ActionsCallbackInterface.OnBackwardsForceIncrease;
-                @BackwardsForceIncrease.performed -= m_Wrapper.m_Player2ActionsCallbackInterface.OnBackwardsForceIncrease;
-                @BackwardsForceIncrease.canceled -= m_Wrapper.m_Player2ActionsCallbackInterface.OnBackwardsForceIncrease;
-                @BackwardsForceDecrease.started -= m_Wrapper.m_Player2ActionsCallbackInterface.OnBackwardsForceDecrease;
-                @BackwardsForceDecrease.performed -= m_Wrapper.m_Player2ActionsCallbackInterface.OnBackwardsForceDecrease;
-                @BackwardsForceDecrease.canceled -= m_Wrapper.m_Player2ActionsCallbackInterface.OnBackwardsForceDecrease;
-                @Rotate.started -= m_Wrapper.m_Player2ActionsCallbackInterface.OnRotate;
-                @Rotate.performed -= m_Wrapper.m_Player2ActionsCallbackInterface.OnRotate;
-                @Rotate.canceled -= m_Wrapper.m_Player2ActionsCallbackInterface.OnRotate;
             }
             m_Wrapper.m_Player2ActionsCallbackInterface = instance;
             if (instance != null)
@@ -1043,21 +971,15 @@ public class @PlayerControl : IInputActionCollection, IDisposable
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
+                @Rotate.started += instance.OnRotate;
+                @Rotate.performed += instance.OnRotate;
+                @Rotate.canceled += instance.OnRotate;
                 @RestartScene.started += instance.OnRestartScene;
                 @RestartScene.performed += instance.OnRestartScene;
                 @RestartScene.canceled += instance.OnRestartScene;
                 @BackwardsForce.started += instance.OnBackwardsForce;
                 @BackwardsForce.performed += instance.OnBackwardsForce;
                 @BackwardsForce.canceled += instance.OnBackwardsForce;
-                @BackwardsForceIncrease.started += instance.OnBackwardsForceIncrease;
-                @BackwardsForceIncrease.performed += instance.OnBackwardsForceIncrease;
-                @BackwardsForceIncrease.canceled += instance.OnBackwardsForceIncrease;
-                @BackwardsForceDecrease.started += instance.OnBackwardsForceDecrease;
-                @BackwardsForceDecrease.performed += instance.OnBackwardsForceDecrease;
-                @BackwardsForceDecrease.canceled += instance.OnBackwardsForceDecrease;
-                @Rotate.started += instance.OnRotate;
-                @Rotate.performed += instance.OnRotate;
-                @Rotate.canceled += instance.OnRotate;
             }
         }
     }
@@ -1074,10 +996,8 @@ public class @PlayerControl : IInputActionCollection, IDisposable
     public interface IPlayer2Actions
     {
         void OnMove(InputAction.CallbackContext context);
+        void OnRotate(InputAction.CallbackContext context);
         void OnRestartScene(InputAction.CallbackContext context);
         void OnBackwardsForce(InputAction.CallbackContext context);
-        void OnBackwardsForceIncrease(InputAction.CallbackContext context);
-        void OnBackwardsForceDecrease(InputAction.CallbackContext context);
-        void OnRotate(InputAction.CallbackContext context);
     }
 }

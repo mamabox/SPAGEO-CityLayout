@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        BackwardsForceText.text = "Backwards Force ([ & ]) = " + player.GetComponent<PlayerController>().backwardsStepForce;
+        BackwardsForceText.text = "Backwards Force (I & O) = " + player.GetComponent<PlayerController>().backwardsStepForce;
     }
 
 }

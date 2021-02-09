@@ -466,6 +466,14 @@
                     "interactions": "Press(behavior=2)"
                 },
                 {
+                    "name": "Rotate",
+                    "type": "Button",
+                    "id": "b91c04be-3458-414d-a405-163baf0946a8",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=2)"
+                },
+                {
                     "name": "RestartScene",
                     "type": "Button",
                     "id": "97d6671a-908d-49ef-b1ef-75dd86e062cb",
@@ -480,77 +488,9 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
-                },
-                {
-                    "name": "BackwardsForceIncrease",
-                    "type": "Button",
-                    "id": "d9f56764-b910-47b8-b2f6-ae24aa0a13d6",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "BackwardsForceDecrease",
-                    "type": "Button",
-                    "id": "a1961a8a-b30a-43e9-bb3a-9c69877f1005",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "Rotate",
-                    "type": "Button",
-                    "id": "b91c04be-3458-414d-a405-163baf0946a8",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Press(behavior=2)"
                 }
             ],
             "bindings": [
-                {
-                    "name": "",
-                    "id": "1b232842-a4c7-4564-b94f-a0bcf9771ac4",
-                    "path": "<Gamepad>/rightShoulder",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "BackwardsForceIncrease",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "709711e1-2fbc-409f-8f7e-7683097359cd",
-                    "path": "<Keyboard>/rightBracket",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "BackwardsForceIncrease",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "c47a3016-664a-4a92-84f3-508e573591c9",
-                    "path": "<Gamepad>/leftShoulder",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "BackwardsForceDecrease",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "75584fa3-28d8-4caa-8e53-ad712600a508",
-                    "path": "<Keyboard>/rightBracket",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "BackwardsForceDecrease",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
                 {
                     "name": "",
                     "id": "fa8e38cb-0453-49b5-b1bb-9ee97bd79f18",

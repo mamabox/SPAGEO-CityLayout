@@ -60,8 +60,8 @@ public class PlayerController : MonoBehaviour
     {
         //PLAYER INPUT
 
-       //horizontalInput = Input.GetAxis("Horizontal");
-       //verticalInput = Input.GetAxis("Vertical");
+       horizontalInput = Input.GetAxis("Horizontal");
+       verticalInput = Input.GetAxis("Vertical");
     
 
         if (verticalInput > 0)
@@ -78,7 +78,7 @@ public class PlayerController : MonoBehaviour
         currentRotation.y += horizontalInput * Time.deltaTime * lookSpeed;
         transform.eulerAngles = new Vector3(0, currentRotation.y, 0);
 
-        if (Input.GetKeyDown(KeyCode.Space))    //Return to start 
+        if (Input.GetKeyDown(KeyCode.Alpha0))    //Return to start 
         {
             transform.position = startPosition;
             currentRotation = startRotation;
@@ -87,46 +87,46 @@ public class PlayerController : MonoBehaviour
 
         }
 
-        // Change the backwards force
-        //if (Input.GetKeyDown(KeyCode.LeftBracket) && (backwardsStepForce > 100))
-        //{
-        //    backwardsStepForce -= 10;
-        //}
-        //if (Input.GetKeyDown(KeyCode.RightBracket) && (backwardsStepForce < 700))
-        //{
-        //    backwardsStepForce += 10;
-        //}
+        //Change the backwards force
+        if (Input.GetKeyDown(KeyCode.I) && (backwardsStepForce > 100))
+        {
+            backwardsStepForce -= 10;
+        }
+        if (Input.GetKeyDown(KeyCode.O) && (backwardsStepForce < 700))
+        {
+            backwardsStepForce += 10;
+        }
 
         #region Location Shortut
-        if (Input.GetKeyDown(KeyCode.Alpha0))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             transform.position = new Vector3(0, 1, 0);
         }
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             transform.position = new Vector3(0, 1, 245);
         }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             transform.position = new Vector3(245, 1, 245);
         }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
+        if (Input.GetKeyDown(KeyCode.Alpha4))
         {
             transform.position = new Vector3(245, 1, 105);
         }
-        if (Input.GetKeyDown(KeyCode.Alpha4))
+        if (Input.GetKeyDown(KeyCode.Alpha5))
         {
             transform.position = new Vector3(385, 1, 105);
         }
-        if (Input.GetKeyDown(KeyCode.Alpha5))
+        if (Input.GetKeyDown(KeyCode.Alpha6))
         {
             transform.position = new Vector3(385, 1, -140);
         }
-        if (Input.GetKeyDown(KeyCode.Alpha6))
+        if (Input.GetKeyDown(KeyCode.Alpha7))
         {
             transform.position = new Vector3(140, 1, -140);
         }
-        if (Input.GetKeyDown(KeyCode.Alpha7))
+        if (Input.GetKeyDown(KeyCode.Alpha8))
         {
             transform.position = new Vector3(140, 1, 0);
         }
@@ -155,14 +155,14 @@ public class PlayerController : MonoBehaviour
         //verticalInput = inputVec.y;
         //horizontalInput = inputVec.x;
 
-        float inputV = input.Get<float>();
-        verticalInput = inputV;
+        //float inputV = input.Get<float>();
+        //verticalInput = inputV;
     }
 
     void OnRotate(InputValue input)
     {
-        float inputH = input.Get<float>();
-        horizontalInput = inputH;
+        //float inputH = input.Get<float>();
+        //horizontalInput = inputH;
     }
 
     //void OnBackwardsForce(InputValue input)
