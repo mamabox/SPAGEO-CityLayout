@@ -340,7 +340,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 6
   lookSpeed: 50
-  backwardsStepForce: 400
+  backwardsStepForce: 700
   startPosition: {x: 0, y: 0, z: 0}
   startRotation: {x: 0, y: 0, z: 0}
   inputVec: {x: 0, y: 0}

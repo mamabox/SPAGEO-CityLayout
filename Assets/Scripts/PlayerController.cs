@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
 {
     public float speed = 6.0f; //Player's walking speed
     public float lookSpeed = 50.0f; //Player's turning speed
-    public int backwardsStepForce = 400;
+    public int backwardsStepForce = 700;
 
     private readonly int xRange = 350; // Ground plane size (x-axis) * 10
     private readonly int yRange = 350; // Ground plane size (y-axis) * 10
@@ -88,11 +88,11 @@ public class PlayerController : MonoBehaviour
         }
 
         //Change the backwards force
-        if (Input.GetKeyDown(KeyCode.I) && (backwardsStepForce > 100))
+        if (Input.GetKeyDown(KeyCode.I) && (backwardsStepForce > 500))
         {
             backwardsStepForce -= 10;
         }
-        if (Input.GetKeyDown(KeyCode.O) && (backwardsStepForce < 700))
+        if (Input.GetKeyDown(KeyCode.O) && (backwardsStepForce < 900))
         {
             backwardsStepForce += 10;
         }
