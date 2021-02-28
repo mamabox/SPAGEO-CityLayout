@@ -27,6 +27,9 @@ public class PlayerController : MonoBehaviour
 
     private Camera playerCamera;
     private Rigidbody playerRb;
+    private GameManager gameManager;
+//    public Canvas canvas;   //Move to GameManager.cs
+
     //private PlayerControl _controls;
 
     public Vector3 startPosition; //Used to reset to initial position
@@ -51,6 +54,9 @@ public class PlayerController : MonoBehaviour
     {
         playerCamera = Camera.main; //Set playerCamera to camera with 'main'tag
         playerRb = GetComponent<Rigidbody>();
+        gameManager = FindObjectOfType<GameManager>().GetComponent<GameManager>();
+       // canvas = GameObject.Find("Canvas");
+
 
         //Record start position and rotation
         startPosition = transform.position;
@@ -84,7 +90,7 @@ public class PlayerController : MonoBehaviour
         currentRotation.y += horizontalInput * Time.deltaTime * lookSpeed;
         transform.eulerAngles = new Vector3(0, currentRotation.y, 0);
 
-        if (Input.GetKeyDown(KeyCode.Alpha0))    //Return to start 
+        if (Input.GetKeyDown(KeyCode.F10))    //Return to start 
         {
             transform.position = startPosition;
             currentRotation = startRotation;
@@ -104,43 +110,49 @@ public class PlayerController : MonoBehaviour
         }
 
         //Location shortcuts
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.F1))
         {
             transform.position = new Vector3(0, 1, 0);
         }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        if (Input.GetKeyDown(KeyCode.F2))
         {
             transform.position = new Vector3(0, 1, 245);
         }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
+        if (Input.GetKeyDown(KeyCode.F3))
         {
             transform.position = new Vector3(245, 1, 245);
         }
-        if (Input.GetKeyDown(KeyCode.Alpha4))
+        if (Input.GetKeyDown(KeyCode.F4))
         {
             transform.position = new Vector3(245, 1, 105);
         }
-        if (Input.GetKeyDown(KeyCode.Alpha5))
+        if (Input.GetKeyDown(KeyCode.F5))
         {
             transform.position = new Vector3(385, 1, 105);
         }
-        if (Input.GetKeyDown(KeyCode.Alpha6))
+        if (Input.GetKeyDown(KeyCode.F6))
         {
             transform.position = new Vector3(385, 1, -140);
         }
-        if (Input.GetKeyDown(KeyCode.Alpha7))
+        if (Input.GetKeyDown(KeyCode.F7))
         {
             transform.position = new Vector3(140, 1, -140);
         }
-        if (Input.GetKeyDown(KeyCode.Alpha8))
+        if (Input.GetKeyDown(KeyCode.F8))
         {
             transform.position = new Vector3(140, 1, 0);
+        }
+
+        //Hide Canvas
+        if (Input.GetKeyDown(KeyCode.F12))
+        {
+            gameManager.canvas.enabled = !gameManager.canvas.enabled;
         }
 
         //Take screenshots
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            TaKeScreenshot();
+            TakeScreenshot();
         }
 
 
@@ -195,7 +207,7 @@ public class PlayerController : MonoBehaviour
         string trackMovementPath = Path.Combine(Directory.GetCurrentDirectory(), "Exports/TrackMovements/");
     }
 
-    void TaKeScreenshot()
+    void TakeScreenshot()
     {
         if (!System.IO.Directory.Exists(screenshotPath)) ;
             System.IO.Directory.CreateDirectory(screenshotPath);
@@ -204,5 +216,25 @@ public class PlayerController : MonoBehaviour
 
         ScreenCapture.CaptureScreenshot(System.IO.Path.Combine(screenshotPath, screenshotName));
         Debug.Log(screenshotPath + screenshotName);
+    }
+
+    public void GotoCoordinates(int posX, int posY, int rot)
+
+    //CHECK IF COORDINATES ARE VALID
+
+    //IF VALID
+
+    {
+        transform.position = new Vector3(posX * gameManager.blockSize, 1, posY * gameManager.blockSize);
+    }
+
+    public void GotoCoordinates()
+    {
+        //CHECK IF COORDINATES ARE VALID
+
+        //IF VALID
+
+        transform.position = new Vector3(gameManager.inputCoordX * gameManager.blockSize, 1, gameManager.inputCoordY * gameManager.blockSize);
+        currentRotation = new Vector3(0, gameManager.inputRot, 0);
     }
 }
