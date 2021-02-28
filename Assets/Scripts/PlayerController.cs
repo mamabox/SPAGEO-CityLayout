@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.IO;
 //using UnityEngine.InputSystem.Utilities;
 
 /**
@@ -17,6 +18,9 @@ public class PlayerController : MonoBehaviour
     public float speed = 6.0f; //Player's walking speed
     public float lookSpeed = 50.0f; //Player's turning speed
     public int backwardsStepForce = 500;
+
+   public string screenshotPath = Path.Combine(Directory.GetCurrentDirectory(), "Exports/Screenshots/");
+   public string trackMovementPath = Path.Combine(Directory.GetCurrentDirectory(), "Exports/TrackMovements/");
 
     private readonly int xRange = 350; // Ground plane size (x-axis) * 10
     private readonly int yRange = 350; // Ground plane size (y-axis) * 10
@@ -53,6 +57,8 @@ public class PlayerController : MonoBehaviour
         startRotation = transform.eulerAngles;
 
         currentRotation = startRotation;
+
+        //setSavePaths(); //Set the saving paths for screenshots and player movements
     }
 
     // Update is called once per frame
@@ -97,7 +103,7 @@ public class PlayerController : MonoBehaviour
             backwardsStepForce += 10;
         }
 
-        #region Location Shortut
+        //Location shortcuts
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             transform.position = new Vector3(0, 1, 0);
@@ -130,7 +136,12 @@ public class PlayerController : MonoBehaviour
         {
             transform.position = new Vector3(140, 1, 0);
         }
-        #endregion
+
+        //Take screenshots
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            TaKeScreenshot();
+        }
 
 
 
@@ -177,4 +188,21 @@ public class PlayerController : MonoBehaviour
     //        backwardsStepForce -= 10;
     //    }
     //}
+
+    public void setSavePaths()
+    {
+        string screenshotPath = Path.Combine(Directory.GetCurrentDirectory(), "Exports/Screenshots/");
+        string trackMovementPath = Path.Combine(Directory.GetCurrentDirectory(), "Exports/TrackMovements/");
+    }
+
+    void TaKeScreenshot()
+    {
+        if (!System.IO.Directory.Exists(screenshotPath)) ;
+            System.IO.Directory.CreateDirectory(screenshotPath);
+
+        var screenshotName = "Screenshot_" + System.DateTime.Now.ToString("HH-mm-ss") + ".png";
+
+        ScreenCapture.CaptureScreenshot(System.IO.Path.Combine(screenshotPath, screenshotName));
+        Debug.Log(screenshotPath + screenshotName);
+    }
 }
