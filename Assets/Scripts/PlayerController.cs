@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        //PLAYER INPUT
+        //PLAYER INPUT - MOVEMENT
 
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
@@ -90,64 +90,70 @@ public class PlayerController : MonoBehaviour
         currentRotation.y += horizontalInput * Time.deltaTime * lookSpeed;
         transform.eulerAngles = new Vector3(0, currentRotation.y, 0);
 
-        if (Input.GetKeyDown(KeyCode.F10))    //Return to start 
+        //PLAYER INPUT - SHORTCUTS
+        if (gameManager.keyboardShortcutsEnabled)   // if inputFields are not active
         {
-            transform.position = startPosition;
-            currentRotation = startRotation;
+            if (Input.GetKeyDown(KeyCode.Alpha0))    //Return to start 
+            {
+                transform.position = startPosition;
+                currentRotation = startRotation;
 
-            //ADD WAIT until you can move again
+                //ADD WAIT until you can move again
 
+            }
+
+            //Change the backwards force
+            if (Input.GetKeyDown(KeyCode.I) && (backwardsStepForce > 300))
+            {
+                backwardsStepForce -= 10;
+            }
+            if (Input.GetKeyDown(KeyCode.O) && (backwardsStepForce < 700))
+            {
+                backwardsStepForce += 10;
+            }
+
+            //Location shortcuts
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                transform.position = new Vector3(0, 1, 0);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                transform.position = new Vector3(0, 1, 245);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                transform.position = new Vector3(245, 1, 245);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                transform.position = new Vector3(245, 1, 105);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                transform.position = new Vector3(385, 1, 105);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha6))
+            {
+                transform.position = new Vector3(385, 1, -140);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha7))
+            {
+                transform.position = new Vector3(140, 1, -140);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha8))
+            {
+                transform.position = new Vector3(140, 1, 0);
+            }
+
+            //Hide Canvas
+            if (Input.GetKeyDown(KeyCode.M))
+            {
+                gameManager.canvas.enabled = !gameManager.canvas.enabled;
+            }
         }
 
-        //Change the backwards force
-        if (Input.GetKeyDown(KeyCode.I) && (backwardsStepForce > 300))
-        {
-            backwardsStepForce -= 10;
-        }
-        if (Input.GetKeyDown(KeyCode.O) && (backwardsStepForce < 700))
-        {
-            backwardsStepForce += 10;
-        }
-
-        //Location shortcuts
-        if (Input.GetKeyDown(KeyCode.F1))
-        {
-            transform.position = new Vector3(0, 1, 0);
-        }
-        if (Input.GetKeyDown(KeyCode.F2))
-        {
-            transform.position = new Vector3(0, 1, 245);
-        }
-        if (Input.GetKeyDown(KeyCode.F3))
-        {
-            transform.position = new Vector3(245, 1, 245);
-        }
-        if (Input.GetKeyDown(KeyCode.F4))
-        {
-            transform.position = new Vector3(245, 1, 105);
-        }
-        if (Input.GetKeyDown(KeyCode.F5))
-        {
-            transform.position = new Vector3(385, 1, 105);
-        }
-        if (Input.GetKeyDown(KeyCode.F6))
-        {
-            transform.position = new Vector3(385, 1, -140);
-        }
-        if (Input.GetKeyDown(KeyCode.F7))
-        {
-            transform.position = new Vector3(140, 1, -140);
-        }
-        if (Input.GetKeyDown(KeyCode.F8))
-        {
-            transform.position = new Vector3(140, 1, 0);
-        }
-
-        //Hide Canvas
-        if (Input.GetKeyDown(KeyCode.F12))
-        {
-            gameManager.canvas.enabled = !gameManager.canvas.enabled;
-        }
+        
 
         //Take screenshots
         if (Input.GetKeyDown(KeyCode.Space))
@@ -309,8 +315,6 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-
-        //IF VALID
 
     }
 }

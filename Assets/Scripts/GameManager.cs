@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour
     public float inputRot = 0;
     public string inputDir;
 
+    public bool keyboardShortcutsEnabled = true;
+
     public string[] validDir = { "N", "NE", "E", "SE", "S", "SW", "W", "NW" };
     public List<string> validCoord = new List<string>();
 
@@ -126,9 +128,13 @@ public class GameManager : MonoBehaviour
         //{
         //    Debug.Log(coord);
         //}
-        
-
+       
     }
 
+    public void inputFieldActive(bool setting)
+    {
+        Debug.Log("DisableKeyboardShortucts = " + setting);
+        keyboardShortcutsEnabled = !setting;
+    }
 
 }
