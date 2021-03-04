@@ -19,8 +19,8 @@ public class PlayerController : MonoBehaviour
     public float lookSpeed = 50.0f; //Player's turning speed
     public int backwardsStepForce = 500;
 
-   public string screenshotPath = Path.Combine(Directory.GetCurrentDirectory(), "Exports/Screenshots/");
-   public string trackMovementPath = Path.Combine(Directory.GetCurrentDirectory(), "Exports/TrackMovements/");
+    public string screenshotPath = Path.Combine(Directory.GetCurrentDirectory(), "Exports/Screenshots/");
+    public string trackMovementPath = Path.Combine(Directory.GetCurrentDirectory(), "Exports/TrackMovements/");
 
     private readonly int xRange = 350; // Ground plane size (x-axis) * 10
     private readonly int yRange = 350; // Ground plane size (y-axis) * 10
@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
     private Camera playerCamera;
     private Rigidbody playerRb;
     private GameManager gameManager;
-//    public Canvas canvas;   //Move to GameManager.cs
+    //    public Canvas canvas;   //Move to GameManager.cs
 
     //private PlayerControl _controls;
 
@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-       // _controls = new PlayerControl();
+        // _controls = new PlayerControl();
     }
 
     // Start is called before the first frame update
@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
         playerCamera = Camera.main; //Set playerCamera to camera with 'main'tag
         playerRb = GetComponent<Rigidbody>();
         gameManager = FindObjectOfType<GameManager>().GetComponent<GameManager>();
-       // canvas = GameObject.Find("Canvas");
+        // canvas = GameObject.Find("Canvas");
 
 
         //Record start position and rotation
@@ -72,9 +72,9 @@ public class PlayerController : MonoBehaviour
     {
         //PLAYER INPUT
 
-       horizontalInput = Input.GetAxis("Horizontal");
-       verticalInput = Input.GetAxis("Vertical");
-    
+        horizontalInput = Input.GetAxis("Horizontal");
+        verticalInput = Input.GetAxis("Vertical");
+
 
         if (verticalInput > 0)
         {
@@ -94,7 +94,7 @@ public class PlayerController : MonoBehaviour
         {
             transform.position = startPosition;
             currentRotation = startRotation;
-            
+
             //ADD WAIT until you can move again
 
         }
@@ -170,7 +170,7 @@ public class PlayerController : MonoBehaviour
     void OnMove(InputValue input)
     {
         //_controls.Player.Move.performed += cntx => inputVec = cntx.ReadValue<Vector2>();
-       // _controls.Player.Move.canceled += cntx => inputVec = Vector2.zero;
+        // _controls.Player.Move.canceled += cntx => inputVec = Vector2.zero;
 
         //Vector2 inputVec = new Vector2();
         ////InputValue input,
@@ -209,10 +209,46 @@ public class PlayerController : MonoBehaviour
 
     void TakeScreenshot()
     {
-        if (!System.IO.Directory.Exists(screenshotPath)) ;
-            System.IO.Directory.CreateDirectory(screenshotPath);
+        var direction = ""; //initialize
 
-        var screenshotName = "Screenshot_" + System.DateTime.Now.ToString("HH-mm-ss") + ".png";
+        if (!System.IO.Directory.Exists(screenshotPath)) ;
+        System.IO.Directory.CreateDirectory(screenshotPath);
+
+        //if ((gameManager.inputRot == 0) || (gameManager.inputRot == 360))
+        //{
+        //    direction = "N";
+        //}
+        //else if ((gameManager.inputRot == 45) || (gameManager.inputRot == -315))
+        //{
+        //    direction = "NE";
+        //}
+        //else if ((gameManager.inputRot == 90) || (gameManager.inputRot == -270))
+        //{
+        //    direction = "E";
+        //}
+        //else if ((gameManager.inputRot == 135) || (gameManager.inputRot == -225))
+        //{
+        //    direction = "SE";
+        //}
+        //else if ((gameManager.inputRot == 180) || (gameManager.inputRot == -180))
+        //{
+        //    direction = "S";
+        //}
+        //else if ((gameManager.inputRot == 225) || (gameManager.inputRot == -135))
+        //{
+        //    direction = "SW";
+        //}
+        //else if ((gameManager.inputRot == 270) || (gameManager.inputRot == -90))
+        //{
+        //    direction = "W";
+        //}
+        //else if ((gameManager.inputRot == 315) || (gameManager.inputRot == -45))
+        //{
+        //    direction = "NW";
+        //}
+
+        //var screenshotName = "Screenshot_" + System.DateTime.Now.ToString("HH-mm-ss") + ".png";
+        var screenshotName = gameManager.inputCoordX+ "."+ gameManager.inputCoordY + gameManager.inputDir + ".png";
 
         ScreenCapture.CaptureScreenshot(System.IO.Path.Combine(screenshotPath, screenshotName));
         Debug.Log(screenshotPath + screenshotName);
@@ -230,11 +266,51 @@ public class PlayerController : MonoBehaviour
 
     public void GotoCoordinates()
     {
-        //CHECK IF COORDINATES ARE VALID
+        if (gameManager.checkCoordValid())
+        {
+            // goto Coordinate
+            transform.position = new Vector3(gameManager.inputCoordX * gameManager.blockSize, 1, gameManager.inputCoordY * gameManager.blockSize);
+
+            //update Rotation
+
+            //currentRotation = new Vector3(0, gameManager.inputRot, 0);
+
+            if (gameManager.inputDir.ToUpper() == "N")
+            {
+                currentRotation = new Vector3(0, 0, 0);
+            }
+            else if (gameManager.inputDir.ToUpper() == "NE")
+            {
+                currentRotation = new Vector3(0, 45, 0);
+            }
+            else if (gameManager.inputDir.ToUpper() == "E")
+            {
+                currentRotation = new Vector3(0, 90, 0);
+            }
+            else if (gameManager.inputDir.ToUpper() == "SE")
+            {
+                currentRotation = new Vector3(0, 135, 0);
+            }
+            else if (gameManager.inputDir.ToUpper() == "S")
+            {
+                currentRotation = new Vector3(0, 180, 0);
+            }
+            else if (gameManager.inputDir.ToUpper() == "SW")
+            {
+                currentRotation = new Vector3(0, 225, 0);
+            }
+            else if (gameManager.inputDir.ToUpper() == "W")
+            {
+                currentRotation = new Vector3(0, 270, 0);
+            }
+            else if (gameManager.inputDir.ToUpper() == "NW")
+            {
+                currentRotation = new Vector3(0, 315, 0);
+            }
+        }
+
 
         //IF VALID
 
-        transform.position = new Vector3(gameManager.inputCoordX * gameManager.blockSize, 1, gameManager.inputCoordY * gameManager.blockSize);
-        currentRotation = new Vector3(0, gameManager.inputRot, 0);
     }
 }
